@@ -101,18 +101,7 @@
                 <div class="glass-panel rounded-2xl p-6 shadow-xl">
                     <h2 class="text-xl font-semibold gold-text mb-4 border-b border-slate-700 pb-2">3. สภาพของดาว (ส่วนขยาย)</h2>
                     <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm text-slate-300 mb-1">มาตรฐานดาว</label>
-                            <select id="dignity" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
-                                <option value="none">-- ไม่มีมาตรฐานพิเศษ --</option>
-                                <option value="เกษตร">เกษตร (มั่นคง ถาวร)</option>
-                                <option value="อุจจ์">มหาอุจจ์ (ยิ่งใหญ่ สูงสุด)</option>
-                                <option value="มหาจักร">มหาจักร (บุกบั่น ผาดโผน)</option>
-                                <option value="ราชาโชค">ราชาโชค (ง่ายดาย อุปถัมภ์)</option>
-                                <option value="ประ">ประ/ปรเกษตร (ไม่มั่นคง ของผู้อื่น)</option>
-                                <option value="นิจ">นิจ (ต่ำต้อย อ่อนกำลัง)</option>
-                            </select>
-                        </div>
+                        
                         <div>
                             <label class="block text-sm text-slate-300 mb-1">การโคจรวิปริต</label>
                             <select id="motion" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
@@ -368,14 +357,33 @@
             }
         };
 
-        const dignityMeanings = {
-            "เกษตร": "มั่นคง ถาวร เป็นปึกแผ่น (ได้ชัวร์ๆ ของแท้ ยั่งยืน)",
-            "อุจจ์": "ยิ่งใหญ่ สูงส่ง โดดเด่น (ได้เยอะ ได้ของชิ้นใหญ่ ขึ้นสู่จุดสูงสุด)",
-            "มหาจักร": "บุกบั่น โลดโผน ผาดโผน (ต้องดิ้นรนต่อสู้ ฝ่าฟันอุปสรรคอย่างหนักก่อนจึงจะสำเร็จ)",
-            "ราชาโชค": "ง่ายดาย สบาย มีผู้อุปถัมภ์ (ได้มาแบบชิลๆ มีคนเอามาประเคนให้ มีเสน่ห์ดึงดูดโชค)",
-            "ประ": "ไม่มั่นคง ของคนอื่น (พึ่งพาตัวเองไม่ได้เต็มร้อย ต้องอาศัยผู้อื่น หรือไม่ใช่ของเราโดยแท้)",
-            "นิจ": "ต่ำต้อย ด้อยค่า เหนื่อยยาก (มีน้อย อ่อนกำลัง ต้องออกแรงดิ้นรนมากกว่าคนอื่นหลายเท่า)"
-        };
+        // ฟังก์ชันคำนวณมาตรฐานดาวอัตโนมัติ
+        function getAutoDignity(planetId, signId) {
+            const rules = {
+                1: { kaset: [4], uch: [0], nit: [6], pra: [10], mahajak: [3], rachachok: [2] },
+                2: { kaset: [3], uch: [1], nit: [7], pra: [9], mahajak: [0], rachachok: [5] },
+                3: { kaset: [0, 7], uch: [9], nit: [3], pra: [1, 6], mahajak: [5], rachachok: [1] },
+                4: { kaset: [2, 5], uch: [5], nit: [11], pra: [8, 11], mahajak: [4], rachachok: [4] },
+                5: { kaset: [8, 11], uch: [3], nit: [9], pra: [2, 5], mahajak: [7], rachachok: [0] },
+                6: { kaset: [1, 6], uch: [11], nit: [5], pra: [0, 7], mahajak: [8], rachachok: [3] },
+                7: { kaset: [9, 10], uch: [6], nit: [0], pra: [3, 4], mahajak: [1], rachachok: [7] },
+                8: { kaset: [10], uch: [7], nit: [1], pra: [4], mahajak: [9], rachachok: [6] }
+            };
+
+            let dignities = [];
+            const p = parseInt(planetId);
+            const s = parseInt(signId);
+
+            if (rules[p]) {
+                if (rules[p].kaset.includes(s)) dignities.push("<span class='text-emerald-400 font-bold'>เกษตร (มั่นคง ถาวร)</span>");
+                if (rules[p].uch.includes(s)) dignities.push("<span class='text-yellow-400 font-bold'>มหาอุจจ์ (ยิ่งใหญ่ สูงสุด)</span>");
+                if (rules[p].mahajak.includes(s)) dignities.push("<span class='text-orange-400 font-bold'>มหาจักร (บุกบั่น ผาดโผน)</span>");
+                if (rules[p].rachachok.includes(s)) dignities.push("<span class='text-pink-400 font-bold'>ราชาโชค (ง่ายดาย อุปถัมภ์)</span>");
+                if (rules[p].pra.includes(s)) dignities.push("<span class='text-gray-400'>ประ (ไม่มั่นคง ของคนอื่น)</span>");
+                if (rules[p].nit.includes(s)) dignities.push("<span class='text-red-400'>นิจ (ต่ำต้อย อ่อนกำลัง)</span>");
+            }
+            return dignities;
+        }
 
         const motionMeanings = {
             "ตนุ": { "พักร์": "ลังเล เปลี่ยนใจบ่อย ถอยหลังเข้าคลอง กลับไปตามแก้ปัญหาเก่า", "มนท์": "เฉื่อยชา หมดไฟ ทำอะไรเชื่องช้า ความก้าวหน้าเกิดช้า", "เสิร์ด": "ใจร้อน วู่วาม ด่วนตัดสินใจ ทำอะไรปุบปับ ไฮเปอร์" },
@@ -397,7 +405,6 @@
         const elAscendant = document.getElementById('ascendant');
         const elPlanet = document.getElementById('planet');
         const elPlanetSign = document.getElementById('planetSign');
-        const elDignity = document.getElementById('dignity');
         const elMotion = document.getElementById('motion');
         const elIsCombust = document.getElementById('isCombust');
         const elResultContent = document.getElementById('resultContent');
@@ -432,7 +439,6 @@
             const ascSign = parseInt(elAscendant.value);
             const planet = parseInt(elPlanet.value);
             const targetSign = parseInt(elPlanetSign.value);
-            const dignity = elDignity.value;
             const motion = elMotion.value;
             const isCombust = elIsCombust.checked;
 
@@ -477,11 +483,13 @@
                 // Add Modifiers inside this block
                 html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-700/50">`;
 
-                if (dignity !== 'none') {
+                // คำนวณมาตรฐานดาวอัตโนมัติ
+                const autoDignities = getAutoDignity(planet, targetSign);
+                if (autoDignities.length > 0) {
                     html += `
                         <div class="flex flex-col">
-                            <span class="text-xs text-slate-400">มาตรฐานดาว (${dignity})</span>
-                            <span class="text-sm text-emerald-400">${dignityMeanings[dignity]}</span>
+                            <span class="text-xs text-slate-400">มาตรฐานดาว</span>
+                            <span class="text-sm">${autoDignities.join(' และ ')}</span>
                         </div>
                     `;
                 }
@@ -547,7 +555,7 @@
         }
 
         // Event Listeners
-        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elDignity, elMotion, elIsCombust];
+        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elMotion, elIsCombust];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
