@@ -524,7 +524,7 @@
         function calculateReading() {
             const birthDay = parseInt(elBirthDay.value);
             const ascSign = parseInt(elAscendant.value);
-const planet = parseInt(elPlanet.value);
+            const planet = parseInt(elPlanet.value);
             const targetSign = parseInt(elPlanetSign.value);
             const motion = elMotion.value;
 
@@ -796,7 +796,7 @@ const planet = parseInt(elPlanet.value);
         }
 
         // Event Listeners
-        const inputs = [elBirthDay, elAscendant, elPlanet, elConjunctPlanet, elConjunctMotion, elPlanetSign, elSunSign, elMotion];
+        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elSunSign, elMotion];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
