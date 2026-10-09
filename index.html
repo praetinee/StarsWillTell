@@ -444,7 +444,6 @@
         const elSunSign = document.getElementById('sunSign'); // เพิ่มบรรทัดนี้
         const elMotion = document.getElementById('motion');
         const elResultContent = document.getElementById('resultContent');
-        const elResultContent = document.getElementById('resultContent');
 
         // Populate Select Options
         function initSelects() {
@@ -482,7 +481,6 @@
 const planet = parseInt(elPlanet.value);
             const targetSign = parseInt(elPlanetSign.value);
             const motion = elMotion.value;
-            let isCombust = elIsCombust.checked; // เปลี่ยนเป็น let เพื่อให้เคลียร์ค่าทิ้งได้
 
             // 1. หาดาวกาลกิณี และตรวจสอบธาตุ
             const karakiniPlanet = karakiniMap[birthDay];
@@ -537,9 +535,6 @@ const planet = parseInt(elPlanet.value);
 
                 html += `</div></div>`;
                 
-                // บังคับปิดค่าดาวดับ (9 และ 0 ไม่มีดาวดับ/เพ็ญ และกาลกิณีเป็น false อยู่แล้ว)
-                isCombust = false; 
-
             } else {
                 // ตรรกะเดิมสำหรับดาว ๑ - ๘ (มีเจ้าเรือน)
                 const ruledHouseIndices = getRuledHouses(ascSign, planet);
