@@ -84,6 +84,8 @@
                                 <option value="6">๖ - ศุกร์</option>
                                 <option value="7">๗ - เสาร์</option>
                                 <option value="8">๘ - ราหู</option>
+                                <option value="9">๙ - เกตุ</option>
+                                <option value="0">๐ - มฤตยู</option>
                             </select>
                         </div>
                         <div>
@@ -399,6 +401,43 @@
             "วินาศ": { "พักร์": "ความลับในอดีตถูกรื้อฟื้น เรื่องซ่อนเร้นวนกลับมา ของหายได้คืน", "มนท์": "ปัญหาซ่อนเร้นยืดเยื้อ ศัตรูลับซุ่มเงียบ งานเบื้องหลังอืดอาด", "เสิร์ด": "ความลับแตกปุบปับ เซอร์ไพรส์กะทันหัน เสียทรัพย์/เดินทางลับๆ ด่วนๆ" }
         };
 
+        // ฐานข้อมูลพิเศษสำหรับ เกตุ(9) และ มฤตยู(0)
+        const specialMeanings = {
+            9: {
+                "ตนุ": "มีเซนส์ ลางสังหรณ์แม่นยำ ชอบของเก่า/เครื่องราง มีสิ่งศักดิ์สิทธิ์คุ้มครอง คิดแปลกแหวกแนว",
+                "กดุมภะ": "เงินหมุนเวียนแปลกๆ ได้เงินฟลุคๆ เงินจากต่างประเทศ/ของเก่า หรือหมดเงินไปกับเรื่องไม่เป็นเรื่อง",
+                "สหัชชะ": "เพื่อนฝูงแปลกๆ มีเพื่อนต่างชาติ/ต่างถิ่น เดินทางบ่อย สังคมวุ่นวายจุกจิก",
+                "พันธุ": "บ้านมีสิ่งศักดิ์สิทธิ์/ของขลังเยอะ ญาติพี่น้องอยู่ห่างไกล ชอบเดินทางไม่อยู่ติดที่",
+                "ปุตตะ": "บริวารหรือลูกหลานมีความคิดแปลกๆ ริเริ่มโปรเจกต์แหวกแนว เสี่ยงโชคได้แบบฟลุคๆ",
+                "อริ": "ศัตรูทำอะไรไม่ได้ (สิ่งศักดิ์สิทธิ์คุ้ม) ปัญหาวุ่นวายจุกจิกแต่แก้ได้แบบงงๆ ระวังโรคแปลกๆ หาสาเหตุยาก",
+                "ปัตนิ": "ได้คู่ครองต่างชาติ/ต่างศาสนา คู่รักมีเซนส์/สัมผัสที่หก ได้คู่แปลกๆ หรือเจอกันแบบปาฏิหาริย์",
+                "มรณะ": "ฝันแม่น ได้มรดกเก่าแก่ เกี่ยวข้องกับต่างประเทศ/ต่างศาสนา รอดตายปาฏิหาริย์",
+                "ศุภะ": "สนใจศาสนา/ปรัชญาอย่างลึกซึ้ง ผู้ใหญ่สายบุญ/ชาวต่างชาติอุปถัมภ์ เดินทางไกลแสวงบุญ",
+                "กัมมะ": "งานเกี่ยวกับต่างประเทศ ไอที เทคโนโลยี งานที่ต้องเคลื่อนไหวบ่อย หรือเกี่ยวข้องกับสิ่งศักดิ์สิทธิ์",
+                "ลาภะ": "โชคลาภจากสิ่งศักดิ์สิทธิ์ ลาภลอยแบบฟลุคๆ ความสำเร็จแบบไม่คาดฝัน",
+                "วินาศ": "มีของดีคุ้มตัว ลางสังหรณ์แม่นยำมาก ชอบปลีกวิเวก มีโชคจากที่ลับ/ต่างแดน"
+            },
+            0: {
+                "ตนุ": "เป็นตัวของตัวเองสูงมาก คิดนอกกรอบ ชอบนวัตกรรม/ความล้ำสมัย ชีวิตมักมีจุดหักเหใหญ่ๆ (อาเพศ)",
+                "กดุมภะ": "การเงินผันผวนหนัก รวยปุบปับ/จนปุบปับ รายได้จากเทคโนโลยี/ต่างชาติ",
+                "สหัชชะ": "เพื่อนฝูงเปลี่ยนหน้าบ่อย สังคมชาวไอที/ต่างชาติ เดินทางกะทันหัน",
+                "พันธุ": "โยกย้ายที่อยู่บ่อย บ้าน/รถพังแบบงงๆ ครอบครัวมีความคิดแตกแยก/ห่างเหิน",
+                "ปุตตะ": "โปรเจกต์ล้ำยุค ลูกหลานหัวก้าวหน้า/ดื้อรั้น ระวังแท้งบุตร มีความรักแบบปุบปับ",
+                "อริ": "ปัญหาเกิดกะทันหันตั้งตัวไม่ติด โรคภัยแปลกๆ/โรคเวรโรคกรรม ศัตรูแพ้ภัยไปเองแบบงงๆ",
+                "ปัตนิ": "ความรักสายฟ้าแลบ ได้คู่ต่างชาติ/คนแปลกๆ เลิกรากะทันหัน หุ้นส่วนหักหลังปุบปับ",
+                "มรณะ": "สนใจศาสตร์ลี้ลับขั้นสุด ได้มรดกไม่คาดฝัน รอดพ้นอุบัติเหตุรุนแรงแบบเฉียดฉิว",
+                "ศุภะ": "เรียนรู้ศาสตร์ใหม่ๆ/เทคโนโลยี เปลี่ยนแปลงความเชื่อกะทันหัน ผู้ใหญ่ให้โทษหรือพลัดพราก",
+                "กัมมะ": "เปลี่ยนงานบ่อย งานไอที/เทคโนโลยี/นวัตกรรม งานมักมีอุปสรรคพลิกผันรุนแรง",
+                "ลาภะ": "ลาภลอยก้อนใหญ่แบบไม่คาดฝัน โชคลาภเกี่ยวกับเทคโนโลยี/ต่างชาติ ได้มาไวไปไว",
+                "วินาศ": "มีสัมผัสที่หก ซ่อนความอัจฉริยะไว้ ชอบค้นคว้าเรื่องแปลกๆ แคล้วคลาดอุบัติเหตุปาฏิหาริย์"
+            }
+        };
+
+        const specialMotion = {
+            9: { "พักร์": "ลางสังหรณ์ผิดเพี้ยน เรื่องวุ่นวายเก่าๆ กลับมา", "มนท์": "ความศักดิ์สิทธิ์/เซนส์ลดลง สิ่งที่คาดหวังชะงัก", "เสิร์ด": "วุ่นวายกะทันหัน สังหรณ์แรงปุบปับ เดินทางด่วน" },
+            0: { "พักร์": "การเปลี่ยนแปลงที่ถูกระงับไว้กลับมาปะทุ โรคเก่ากำเริบเฉียบพลัน", "มนท์": "การเปลี่ยนแปลงล่าช้า เทคโนโลยี/นวัตกรรมติดขัด", "เสิร์ด": "เกิดอาเพศ/การเปลี่ยนแปลงอย่างรุนแรงและรวดเร็วมาก" }
+        };
+
         // DOM Elements
         const elBirthDay = document.getElementById('birthDay');
         const elAscendant = document.getElementById('ascendant');
@@ -436,10 +475,10 @@
         function calculateReading() {
             const birthDay = parseInt(elBirthDay.value);
             const ascSign = parseInt(elAscendant.value);
-            const planet = parseInt(elPlanet.value);
+const planet = parseInt(elPlanet.value);
             const targetSign = parseInt(elPlanetSign.value);
             const motion = elMotion.value;
-            const isCombust = elIsCombust.checked;
+            let isCombust = elIsCombust.checked; // เปลี่ยนเป็น let เพื่อให้เคลียร์ค่าทิ้งได้
 
             // 1. หาดาวกาลกิณี และตรวจสอบธาตุ
             const karakiniPlanet = karakiniMap[birthDay];
@@ -450,51 +489,40 @@
                 karakiniNeutralized = true;
             }
 
-            // 2. หาภพต้นทาง (เจ้าเรือน) และภพปลายทาง
-            const ruledHouseIndices = getRuledHouses(ascSign, planet);
+            // 2. หาภพปลายทาง
             const destHouseIndex = getHouseIndex(ascSign, targetSign);
             const destHouseName = houses[destHouseIndex];
 
             // 3. เริ่มสร้าง HTML ผลลัพธ์
             let html = '';
 
-            ruledHouseIndices.forEach(ruledIndex => {
-                const ruledHouseName = houses[ruledIndex];
-                const meaning = meaningsDB[ruledHouseName][destHouseName] || "ไม่พบข้อมูลคำทำนาย";
-
+            // ตรรกะแยกสำหรับดาว เกตุ (9) และ มฤตยู (0) 
+            if (planet === 9 || planet === 0) {
+                const pName = planet === 9 ? 'ดาวเกตุ (๙)' : 'ดาวมฤตยู (๐)';
+                const meaning = specialMeanings[planet][destHouseName];
+                const themeColor = planet === 9 ? 'purple' : 'teal'; // เกตุสีม่วง, มฤตยูสีเขียวอมฟ้า
+                
                 html += `
                     <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/50 mb-4">
                         <div class="flex items-center gap-2 mb-3">
-                            <div class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold border border-yellow-500/30">
-                                เจ้าเรือน ${ruledHouseName}
+                            <div class="bg-${themeColor}-500/20 text-${themeColor}-400 px-3 py-1 rounded-full text-sm font-semibold border border-${themeColor}-500/30">
+                                ${pName}
                             </div>
                             <span class="text-slate-400">➔</span>
                             <div class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold border border-blue-500/30">
-                                ภพ ${destHouseName}
+                                สถิตภพ ${destHouseName}
                             </div>
                         </div>
                         <p class="text-lg text-white leading-relaxed mb-4">
-                            <span class="font-bold text-yellow-400">${ruledHouseName} ไป ${destHouseName}:</span> 
+                            <span class="font-bold text-${themeColor}-400">${pName} ในภพ ${destHouseName}:</span> 
                             ${meaning}
                         </p>
                 `;
 
-                // Add Modifiers inside this block
                 html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-700/50">`;
 
-                // คำนวณมาตรฐานดาวอัตโนมัติ
-                const autoDignities = getAutoDignity(planet, targetSign);
-                if (autoDignities.length > 0) {
-                    html += `
-                        <div class="flex flex-col">
-                            <span class="text-xs text-slate-400">มาตรฐานดาว</span>
-                            <span class="text-sm">${autoDignities.join(' และ ')}</span>
-                        </div>
-                    `;
-                }
-
                 if (motion !== 'ปกติ') {
-                    const motionTxt = motionMeanings[ruledHouseName][motion] || "มีการเปลี่ยนแปลง/ล่าช้าผิดปกติ";
+                    const motionTxt = specialMotion[planet][motion];
                     html += `
                         <div class="flex flex-col">
                             <span class="text-xs text-slate-400">โคจร${motion}</span>
@@ -503,8 +531,60 @@
                     `;
                 }
 
-                html += `</div></div>`; // Close grid and block
-            });
+                html += `</div></div>`;
+                
+                // บังคับปิดค่าดาวดับ (9 และ 0 ไม่มีดาวดับ/เพ็ญ และกาลกิณีเป็น false อยู่แล้ว)
+                isCombust = false; 
+
+            } else {
+                // ตรรกะเดิมสำหรับดาว ๑ - ๘ (มีเจ้าเรือน)
+                const ruledHouseIndices = getRuledHouses(ascSign, planet);
+                ruledHouseIndices.forEach(ruledIndex => {
+                    const ruledHouseName = houses[ruledIndex];
+                    const meaning = meaningsDB[ruledHouseName][destHouseName] || "ไม่พบข้อมูลคำทำนาย";
+
+                    html += `
+                        <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/50 mb-4">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold border border-yellow-500/30">
+                                    เจ้าเรือน ${ruledHouseName}
+                                </div>
+                                <span class="text-slate-400">➔</span>
+                                <div class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold border border-blue-500/30">
+                                    ภพ ${destHouseName}
+                                </div>
+                            </div>
+                            <p class="text-lg text-white leading-relaxed mb-4">
+                                <span class="font-bold text-yellow-400">${ruledHouseName} ไป ${destHouseName}:</span> 
+                                ${meaning}
+                            </p>
+                    `;
+
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-700/50">`;
+
+                    const autoDignities = getAutoDignity(planet, targetSign);
+                    if (autoDignities.length > 0) {
+                        html += `
+                            <div class="flex flex-col">
+                                <span class="text-xs text-slate-400">มาตรฐานดาว</span>
+                                <span class="text-sm">${autoDignities.join(' และ ')}</span>
+                            </div>
+                        `;
+                    }
+
+                    if (motion !== 'ปกติ') {
+                        const motionTxt = motionMeanings[ruledHouseName][motion] || "มีการเปลี่ยนแปลง/ล่าช้าผิดปกติ";
+                        html += `
+                            <div class="flex flex-col">
+                                <span class="text-xs text-slate-400">โคจร${motion}</span>
+                                <span class="text-sm text-orange-400">${motionTxt}</span>
+                            </div>
+                        `;
+                    }
+
+                    html += `</div></div>`;
+                });
+            }
 
             // 4. สร้างบล็อกสรุปสถานะพิเศษ (กาลกิณี / ดาวดับ)
             if (isKarakini || isCombust) {
