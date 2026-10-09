@@ -94,21 +94,32 @@
                                 <option value="0">๐ - มฤตยู</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-sm text-slate-300 mb-1">ดาวกุม (สถิตร่วมราศีเดียวกัน)</label>
-                            <select id="conjunctPlanet" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
-                                <option value="none">- ไม่มีดาวกุม -</option>
-                                <option value="1">๑ - อาทิตย์</option>
-                                <option value="2">๒ - จันทร์</option>
-                                <option value="3">๓ - อังคาร</option>
-                                <option value="4">๔ - พุธ</option>
-                                <option value="5">๕ - พฤหัสบดี</option>
-                                <option value="6">๖ - ศุกร์</option>
-                                <option value="7">๗ - เสาร์</option>
-                                <option value="8">๘ - ราหู</option>
-                                <option value="9">๙ - เกตุ</option>
-                                <option value="0">๐ - มฤตยู</option>
-                            </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">ดาวกุม (สถิตร่วมราศี)</label>
+                                <select id="conjunctPlanet" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                    <option value="none">- ไม่มีดาวกุม -</option>
+                                    <option value="1">๑ - อาทิตย์</option>
+                                    <option value="2">๒ - จันทร์</option>
+                                    <option value="3">๓ - อังคาร</option>
+                                    <option value="4">๔ - พุธ</option>
+                                    <option value="5">๕ - พฤหัสบดี</option>
+                                    <option value="6">๖ - ศุกร์</option>
+                                    <option value="7">๗ - เสาร์</option>
+                                    <option value="8">๘ - ราหู</option>
+                                    <option value="9">๙ - เกตุ</option>
+                                    <option value="0">๐ - มฤตยู</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">การโคจร (ดาวกุม)</label>
+                                <select id="conjunctMotion" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                    <option value="ปกติ">โคจรปกติ</option>
+                                    <option value="พักร์">พักร์ (ถอยหลัง/ซ้ำเดิม)</option>
+                                    <option value="มนท์">มนท์ (ช้า/เฉื่อย)</option>
+                                    <option value="เสิร์ด">เสิร์ด (เร็ว/ปุบปับ)</option>
+                                </select>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-sm text-slate-300 mb-1">ไปอยู่ราศี (ภพปลายทาง)</label>
@@ -487,7 +498,8 @@
         const elBirthDay = document.getElementById('birthDay');
         const elAscendant = document.getElementById('ascendant');
         const elPlanet = document.getElementById('planet');
-        const elConjunctPlanet = document.getElementById('conjunctPlanet'); // เพิ่มบรรทัดนี้
+        const elConjunctPlanet = document.getElementById('conjunctPlanet');
+        const elConjunctMotion = document.getElementById('conjunctMotion'); // เพิ่มบรรทัดนี้
         const elPlanetSign = document.getElementById('planetSign');
         const elSunSign = document.getElementById('sunSign'); // เพิ่มบรรทัดนี้
         const elMotion = document.getElementById('motion');
@@ -716,48 +728,77 @@ const planet = parseInt(elPlanet.value);
                             ${specialStatusHtml}
                          </div>`;
             }
-            // 5. เช็คดาวกุม (อิทธิพลคู่ดาว)
+            // 5. เช็คดาวกุม (อิทธิพลคู่ดาว + มาตรฐาน + การโคจร)
             const conjunctVal = elConjunctPlanet.value;
             if (conjunctVal !== 'none') {
                 const p1 = planet;
                 const p2 = parseInt(conjunctVal);
+                const cMotion = elConjunctMotion.value;
                 
+                let themeColor = "blue";
+                if (p1 === p2) themeColor = "indigo";
+                else if (p1 === 9 || p2 === 9 || p1 === 0 || p2 === 0) themeColor = "purple";
+
+                html += `<div class="bg-${themeColor}-900/30 rounded-xl p-5 border border-${themeColor}-500/30 mt-4">`;
+
+                // ส่วนที่ 1: ความหมายคู่ดาว
                 if (p1 === p2) {
                     html += `
-                        <div class="bg-indigo-900/30 rounded-xl p-5 border border-indigo-500/30 mt-4">
-                            <h3 class="text-indigo-400 font-bold mb-1">✨ ดาวสถิตกุมกันเอง</h3>
-                            <p class="text-sm text-slate-300">ดาวดวงเดียวกันกุมกัน เป็นการเน้นย้ำและเบิ้ลพลังงานของดาวดวงนั้นให้โดดเด่นและชัดเจนยิ่งขึ้น</p>
-                        </div>`;
+                        <h3 class="text-${themeColor}-400 font-bold mb-1">✨ ดาวสถิตกุมกันเอง</h3>
+                        <p class="text-sm text-slate-300">ดาวดวงเดียวกันกุมกัน เป็นการเน้นย้ำและเบิ้ลพลังงานของดาวดวงนั้นให้โดดเด่นและชัดเจนยิ่งขึ้น</p>`;
                 } else if (p1 === 9 || p2 === 9 || p1 === 0 || p2 === 0) {
-                    // กรณีดาว 9 หรือ 0 มากุม
                     const specialModifier = (p1 === 9 || p2 === 9) 
                         ? "มีสิ่งศักดิ์สิทธิ์คุ้มครอง มีเซนส์ ลางสังหรณ์ หรือมีเรื่องแปลกประหลาด/ต่างประเทศเข้ามาผสมผสาน"
                         : "เกิดความพลิกผัน อาเพศ นวัตกรรม ความล้ำสมัย หรือการเปลี่ยนแปลงกะทันหันในเรื่องนั้นๆ";
                     html += `
-                        <div class="bg-purple-900/30 rounded-xl p-5 border border-purple-500/30 mt-4">
-                            <h3 class="text-purple-400 font-bold mb-1">อิทธิพลดาวกุม (มีดาว ๙/๐ ร่วมด้วย)</h3>
-                            <p class="text-sm text-slate-300">เรื่องราวของภพนี้จะมีอิทธิพลของความเหนือความคาดหมาย: ${specialModifier}</p>
-                        </div>`;
+                        <h3 class="text-${themeColor}-400 font-bold mb-1">อิทธิพลดาวกุม (มีดาว ๙/๐ ร่วมด้วย)</h3>
+                        <p class="text-sm text-slate-300">เรื่องราวของภพนี้จะมีอิทธิพลของความเหนือความคาดหมาย: ${specialModifier}</p>`;
                 } else {
-                    // กรณีดาว 1-8 เจอกัน
                     const minP = Math.min(p1, p2);
                     const maxP = Math.max(p1, p2);
                     const pairKey = `${minP}-${maxP}`;
                     const pairMeaning = pairMeanings[pairKey] || "ส่งอิทธิพลผสมผสานกันตามธรรมชาติของดาวทั้งสองดวง";
                     
                     html += `
-                        <div class="bg-blue-900/30 rounded-xl p-5 border border-blue-500/30 mt-4">
-                            <h3 class="text-blue-400 font-bold mb-1">อิทธิพลคู่ดาวกุม (${p1} กุม ${p2})</h3>
-                            <p class="text-sm text-slate-300">${pairMeaning}</p>
-                        </div>`;
+                        <h3 class="text-${themeColor}-400 font-bold mb-1">อิทธิพลคู่ดาวกุม (${p1} กุม ${p2})</h3>
+                        <p class="text-sm text-slate-300">${pairMeaning}</p>`;
                 }
+
+                // ส่วนที่ 2: มาตรฐานดาว และ การโคจรของดาวกุม (ยกเว้น 9, 0)
+                if (p2 !== 9 && p2 !== 0) {
+                    // คำนวณมาตรฐานอัตโนมัติ โดยใช้ราศีเดียวกับดาวหลัก
+                    const p2Dignities = getAutoDignity(p2, targetSign);
+                    const p2DignityText = p2Dignities.length > 0 ? p2Dignities.join(' และ ') : "<span class='text-slate-400'>- ไม่มีมาตรฐานพิเศษ -</span>";
+                    
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-slate-700/50">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-slate-400">มาตรฐานดาวกุม (${p2})</span>
+                            <span class="text-sm">${p2DignityText}</span>
+                        </div>`;
+
+                    if (cMotion !== 'ปกติ') {
+                        let cMotionMeaning = "";
+                        if (cMotion === "พักร์") cMotionMeaning = "พลังงานดาวกุมแปรปรวน ล่าช้า ถอยหลัง หรือต้องแก้ไขซ้ำๆ";
+                        if (cMotion === "มนท์") cMotionMeaning = "อิทธิพลดาวกุมเชื่องช้า อ่อนกำลัง หรือหยุดนิ่ง";
+                        if (cMotion === "เสิร์ด") cMotionMeaning = "อิทธิพลดาวกุมเกิดรวดเร็ว ปุบปับ รุนแรงกว่าปกติ";
+
+                        html += `
+                            <div class="flex flex-col">
+                                <span class="text-xs text-slate-400">การโคจรดาวกุม (${cMotion})</span>
+                                <span class="text-sm text-orange-400">${cMotionMeaning}</span>
+                            </div>`;
+                    }
+                    html += `</div>`;
+                }
+
+                html += `</div>`; // ปิดกล่องดาวกุม
             }
 
             elResultContent.innerHTML = html;
         }
 
         // Event Listeners
-        const inputs = [elBirthDay, elAscendant, elPlanet, elConjunctPlanet, elPlanetSign, elSunSign, elMotion];
+        const inputs = [elBirthDay, elAscendant, elPlanet, elConjunctPlanet, elConjunctMotion, elPlanetSign, elSunSign, elMotion];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
