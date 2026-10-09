@@ -79,20 +79,31 @@
                 <div class="glass-panel rounded-2xl p-6 shadow-xl">
                     <h2 class="text-xl font-semibold gold-text mb-4 border-b border-slate-700 pb-2">2. ตำแหน่งดาวที่ต้องการอ่าน</h2>
                     <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm text-slate-300 mb-1">ดาวเคราะห์</label>
-                            <select id="planet" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
-                                <option value="1">๑ - อาทิตย์</option>
-                                <option value="2">๒ - จันทร์</option>
-                                <option value="3">๓ - อังคาร</option>
-                                <option value="4">๔ - พุธ</option>
-                                <option value="5">๕ - พฤหัสบดี</option>
-                                <option value="6">๖ - ศุกร์</option>
-                                <option value="7">๗ - เสาร์</option>
-                                <option value="8">๘ - ราหู</option>
-                                <option value="9">๙ - เกตุ</option>
-                                <option value="0">๐ - มฤตยู</option>
-                            </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">ดาวเคราะห์หลัก</label>
+                                <select id="planet" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                    <option value="1">๑ - อาทิตย์</option>
+                                    <option value="2">๒ - จันทร์</option>
+                                    <option value="3">๓ - อังคาร</option>
+                                    <option value="4">๔ - พุธ</option>
+                                    <option value="5">๕ - พฤหัสบดี</option>
+                                    <option value="6">๖ - ศุกร์</option>
+                                    <option value="7">๗ - เสาร์</option>
+                                    <option value="8">๘ - ราหู</option>
+                                    <option value="9">๙ - เกตุ</option>
+                                    <option value="0">๐ - มฤตยู</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">การโคจร (ดาวหลัก)</label>
+                                <select id="motion" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                    <option value="ปกติ">โคจรปกติ</option>
+                                    <option value="พักร์">พักร์ (ถอยหลัง/ซ้ำเดิม)</option>
+                                    <option value="มนท์">มนท์ (ช้า/เฉื่อย/นิ่ง)</option>
+                                    <option value="เสิร์ด">เสิร์ด (เร็ว/ปุบปับ/ใจร้อน)</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -127,23 +138,6 @@
                                 <!-- Options populated by JS -->
                             </select>
                         </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-6 shadow-xl">
-                    <h2 class="text-xl font-semibold gold-text mb-4 border-b border-slate-700 pb-2">3. สภาพของดาว (ส่วนขยาย)</h2>
-                    <div class="space-y-4">
-                        
-                        <div>
-                            <label class="block text-sm text-slate-300 mb-1">การโคจรวิปริต</label>
-                            <select id="motion" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
-                                <option value="ปกติ">โคจรปกติ</option>
-                                <option value="พักร์">พักร์ (ถอยหลัง/ซ้ำเดิม)</option>
-                                <option value="มนท์">มนท์ (ช้า/เฉื่อย/นิ่ง)</option>
-                                <option value="เสิร์ด">เสิร์ด (เร็ว/ปุบปับ/ใจร้อน)</option>
-                            </select>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
