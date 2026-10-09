@@ -109,9 +109,12 @@
                             </select>
                         </div>
                         <div class="pt-2">
-                            <label class="flex items-center space-x-3 cursor-pointer">
-                                <input type="checkbox" id="isCombust" class="w-5 h-5 rounded border-slate-600 text-yellow-500 focus:ring-yellow-500 bg-slate-800">
-                                <span class="text-slate-300">เป็นดาวดับ (ถูกแสงอาทิตย์บดบัง)</span>
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" id="isCombust" class="w-5 h-5 rounded border-slate-600 text-yellow-500 focus:ring-yellow-500 bg-slate-800 mt-0.5">
+                                <div class="flex flex-col">
+                                    <span class="text-slate-300">เป็นดาวดับ / ดาวเพ็ญ</span>
+                                    <span class="text-xs text-slate-500 mt-1">*(ติ๊กเมื่อดาวดวงนี้อยู่ใกล้ดาวอาทิตย์ ในระยะ 0 - 6 องศา)*</span>
+                                </div>
                             </label>
                         </div>
                     </div>
@@ -509,13 +512,33 @@
                             <h3 class="text-red-400 font-semibold mb-2">⚠️ จุดสังเกตพิเศษ</h3>`;
                 
                 if (isKarakini) {
-                    if (karakiniNeutralized) {
+                    if (destHouseName === 'วินาศ') {
                         html += `
                             <div class="flex gap-2 items-start">
-                                <span class="text-red-500 text-lg">✗</span>
+                                <span class="text-emerald-500 text-lg">✓</span>
                                 <div>
-                                    <span class="text-white font-medium">ดาวกาลกิณีเดิม (ถูกลดทอน)</span>
-                                    <p class="text-sm text-slate-400 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม แต่โคจรไปตกราศีธาตุ${targetElement} ทำให้ความร้ายกาจถูกดูดซับ หรือไม่สามารถแสดงผลร้ายได้เต็มที่ (พิษสงลดลง)</p>
+                                    <span class="text-emerald-400 font-medium">กาลกิณีตกวินาศ (ความเป็นกาลกิณีหายไป)</span>
+                                    <p class="text-sm text-slate-300 mt-1">ดาวกาลกิณีไปตกภพวินาศ ถือว่าดีมาก ความเป็นกาลกิณีหายไปเลย ส่งผลดี ไม่ให้โทษร้ายตามความหมายเดิม</p>
+                                </div>
+                            </div>
+                        `;
+                    } else if (destHouseName === 'อริ' || destHouseName === 'มรณะ') {
+                        html += `
+                            <div class="flex gap-2 items-start">
+                                <span class="text-red-500 text-lg">☠</span>
+                                <div>
+                                    <span class="text-red-500 font-bold">กาลกิณีตก ${destHouseName} (ไม่ดีอย่างยิ่ง)</span>
+                                    <p class="text-sm text-slate-300 mt-1">ดาวกาลกิณีตกภพ${destHouseName} ไม่ดีตามความหมายทางโหราศาสตร์เลย ให้โทษร้ายแรง สร้างความเสียหาย อุปสรรค หรือพลัดพรากอย่างมาก</p>
+                                </div>
+                            </div>
+                        `;
+                    } else if (karakiniNeutralized) {
+                        html += `
+                            <div class="flex gap-2 items-start">
+                                <span class="text-yellow-500 text-lg">⚠</span>
+                                <div>
+                                    <span class="text-white font-medium">ดาวกาลกิณีเดิม (ถูกลดทอนด้วยธาตุ)</span>
+                                    <p class="text-sm text-slate-400 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม แต่โคจรไปตกราศีธาตุ${targetElement} ทำให้ความร้ายกาจถูกดูดซับ พิษสงลดลง</p>
                                 </div>
                             </div>
                         `;
@@ -525,7 +548,7 @@
                                 <span class="text-red-500 text-lg">⚠</span>
                                 <div>
                                     <span class="text-red-400 font-medium">ดาวกาลกิณีเดิม (ออกฤทธิ์เต็มที่)</span>
-                                    <p class="text-sm text-slate-300 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม และตกในราศีที่เอื้อต่อการแสดงผล ต้องระวังอุปสรรค ความขัดแย้ง หรือความเสียหายในเรื่องที่ดาวดวงนี้ไปสัมพันธ์ด้วย</p>
+                                    <p class="text-sm text-slate-300 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม และตกในราศีที่เอื้อต่อการแสดงผล ต้องระวังอุปสรรค ความขัดแย้ง หรือความเสียหาย</p>
                                 </div>
                             </div>
                         `;
@@ -537,8 +560,8 @@
                         <div class="flex gap-2 items-start">
                             <span class="text-orange-500 text-lg">☀</span>
                             <div>
-                                <span class="text-orange-400 font-medium">ดาวดับ (Combust)</span>
-                                <p class="text-sm text-slate-300 mt-1">ดาวถูกแสงอาทิตย์บดบัง พลังงานอ่อนแรง คุณภาพดาวลดลง เรื่องราวที่ตีความไว้อาจไม่แสดงผลเต็มที่ หรือกลายเป็นเรื่องที่ต้องปกปิด ซ่อนเร้น</p>
+                                <span class="text-orange-400 font-medium">ดาวดับ / ดาวเพ็ญ (Combust/Cazimi)</span>
+                                <p class="text-sm text-slate-300 mt-1">ดาวดวงนี้อยู่ใกล้ดาวอาทิตย์ (0-6 องศา) พลังงานของดาวถูกอาทิตย์แผดเผา ทำให้คุณภาพดาวลดลง หรือเรื่องราวของดาวนั้นกลายเป็นเรื่องถูกปกปิด ซ่อนเร้น</p>
                             </div>
                         </div>
                     `;
