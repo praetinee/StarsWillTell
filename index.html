@@ -67,6 +67,12 @@
                                 <!-- Options populated by JS -->
                             </select>
                         </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-1">ดาวอาทิตย์ (๑) สถิตราศี <span class="text-xs text-yellow-500">(เพื่อคำนวณเพ็ญ/ดับ)</span></label>
+                            <select id="sunSign" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -110,15 +116,7 @@
                                 <option value="เสิร์ด">เสิร์ด (เร็ว/ปุบปับ/ใจร้อน)</option>
                             </select>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" id="isCombust" class="w-5 h-5 rounded border-slate-600 text-yellow-500 focus:ring-yellow-500 bg-slate-800 mt-0.5">
-                                <div class="flex flex-col">
-                                    <span class="text-slate-300">เป็นดาวดับ / ดาวเพ็ญ</span>
-                                    <span class="text-xs text-slate-500 mt-1">*(ติ๊กเมื่อดาวดวงนี้อยู่ใกล้ดาวอาทิตย์ ในระยะ 0 - 6 องศา)*</span>
-                                </div>
-                            </label>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -443,8 +441,9 @@
         const elAscendant = document.getElementById('ascendant');
         const elPlanet = document.getElementById('planet');
         const elPlanetSign = document.getElementById('planetSign');
+        const elSunSign = document.getElementById('sunSign'); // เพิ่มบรรทัดนี้
         const elMotion = document.getElementById('motion');
-        const elIsCombust = document.getElementById('isCombust');
+        const elResultContent = document.getElementById('resultContent');
         const elResultContent = document.getElementById('resultContent');
 
         // Populate Select Options
@@ -459,6 +458,11 @@
                 destOption.value = sign.id;
                 destOption.textContent = `${sign.name} (ธาตุ${sign.element})`;
                 elPlanetSign.appendChild(destOption);
+
+                const sunOption = document.createElement('option');
+                sunOption.value = sign.id;
+                sunOption.textContent = `${sign.name} (ธาตุ${sign.element})`;
+                elSunSign.appendChild(sunOption); // แทรกบล็อกนี้
             });
         }
 
@@ -586,75 +590,94 @@ const planet = parseInt(elPlanet.value);
                 });
             }
 
-            // 4. สร้างบล็อกสรุปสถานะพิเศษ (กาลกิณี / ดาวดับ)
-            if (isKarakini || isCombust) {
-                html += `<div class="bg-red-900/20 rounded-xl p-5 border border-red-500/30 mt-4 space-y-3">
-                            <h3 class="text-red-400 font-semibold mb-2">⚠️ จุดสังเกตพิเศษ</h3>`;
-                
-                if (isKarakini) {
-                    if (destHouseName === 'วินาศ') {
-                        html += `
-                            <div class="flex gap-2 items-start">
-                                <span class="text-emerald-500 text-lg">✓</span>
-                                <div>
-                                    <span class="text-emerald-400 font-medium">กาลกิณีตกวินาศ (ความเป็นกาลกิณีหายไป)</span>
-                                    <p class="text-sm text-slate-300 mt-1">ดาวกาลกิณีไปตกภพวินาศ ถือว่าดีมาก ความเป็นกาลกิณีหายไปเลย ส่งผลดี ไม่ให้โทษร้ายตามความหมายเดิม</p>
-                                </div>
-                            </div>
-                        `;
-                    } else if (destHouseName === 'อริ' || destHouseName === 'มรณะ') {
-                        html += `
-                            <div class="flex gap-2 items-start">
-                                <span class="text-red-500 text-lg">☠</span>
-                                <div>
-                                    <span class="text-red-500 font-bold">กาลกิณีตก ${destHouseName} (ไม่ดีอย่างยิ่ง)</span>
-                                    <p class="text-sm text-slate-300 mt-1">ดาวกาลกิณีตกภพ${destHouseName} ไม่ดีตามความหมายทางโหราศาสตร์เลย ให้โทษร้ายแรง สร้างความเสียหาย อุปสรรค หรือพลัดพรากอย่างมาก</p>
-                                </div>
-                            </div>
-                        `;
-                    } else if (karakiniNeutralized) {
-                        html += `
-                            <div class="flex gap-2 items-start">
-                                <span class="text-yellow-500 text-lg">⚠</span>
-                                <div>
-                                    <span class="text-white font-medium">ดาวกาลกิณีเดิม (ถูกลดทอนด้วยธาตุ)</span>
-                                    <p class="text-sm text-slate-400 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม แต่โคจรไปตกราศีธาตุ${targetElement} ทำให้ความร้ายกาจถูกดูดซับ พิษสงลดลง</p>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        html += `
-                            <div class="flex gap-2 items-start">
-                                <span class="text-red-500 text-lg">⚠</span>
-                                <div>
-                                    <span class="text-red-400 font-medium">ดาวกาลกิณีเดิม (ออกฤทธิ์เต็มที่)</span>
-                                    <p class="text-sm text-slate-300 mt-1">ดาวดวงนี้เป็นกาลกิณีเดิม และตกในราศีที่เอื้อต่อการแสดงผล ต้องระวังอุปสรรค ความขัดแย้ง หรือความเสียหาย</p>
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
+            // 4. สร้างบล็อกสรุปสถานะพิเศษ (กาลกิณี / เพ็ญ / ดับ)
+            const sunSignId = parseInt(elSunSign.value);
+            let specialStatusHtml = '';
 
-                if (isCombust) {
-                    html += `
+            // 4.1 เช็คกาลกิณี
+            if (isKarakini) {
+                if (destHouseName === 'วินาศ') {
+                    specialStatusHtml += `
                         <div class="flex gap-2 items-start">
+                            <span class="text-emerald-500 text-lg">✓</span>
+                            <div>
+                                <span class="text-emerald-400 font-medium">กาลกิณีตกวินาศ (ความเป็นกาลกิณีหายไป)</span>
+                                <p class="text-sm text-slate-300 mt-1">ดาวกาลกิณีไปตกภพวินาศ ถือว่าดีมาก ความเป็นกาลกิณีหายไป ส่งผลดี ไม่ให้โทษร้ายตามความหมายเดิม</p>
+                            </div>
+                        </div>`;
+                } else if (destHouseName === 'อริ' || destHouseName === 'มรณะ') {
+                    specialStatusHtml += `
+                        <div class="flex gap-2 items-start">
+                            <span class="text-red-500 text-lg">☠</span>
+                            <div>
+                                <span class="text-red-500 font-bold">กาลกิณีตก ${destHouseName} (ไม่ดีอย่างยิ่ง)</span>
+                                <p class="text-sm text-slate-300 mt-1">ให้โทษร้ายแรง สร้างความเสียหาย อุปสรรค หรือการพลัดพรากอย่างมาก</p>
+                            </div>
+                        </div>`;
+                } else if (karakiniNeutralized) {
+                    specialStatusHtml += `
+                        <div class="flex gap-2 items-start">
+                            <span class="text-yellow-500 text-lg">⚠</span>
+                            <div>
+                                <span class="text-white font-medium">ดาวกาลกิณีเดิม (ถูกลดทอนด้วยธาตุ)</span>
+                                <p class="text-sm text-slate-400 mt-1">โคจรไปตกราศีธาตุ${targetElement} ทำให้ความร้ายกาจถูกดูดซับ พิษสงลดลง</p>
+                            </div>
+                        </div>`;
+                } else {
+                    specialStatusHtml += `
+                        <div class="flex gap-2 items-start">
+                            <span class="text-red-500 text-lg">⚠</span>
+                            <div>
+                                <span class="text-red-400 font-medium">ดาวกาลกิณีเดิม (ออกฤทธิ์เต็มที่)</span>
+                                <p class="text-sm text-slate-300 mt-1">ตกในราศีที่เอื้อต่อการแสดงผล ต้องระวังอุปสรรค ความขัดแย้ง หรือความเสียหาย</p>
+                            </div>
+                        </div>`;
+                }
+            }
+
+            // 4.2 เช็คดาวเพ็ญ / ดาวดับ อัตโนมัติ (เฉพาะดาว ๒, ๓, ๔, ๕, ๖, ๗)
+            if ([2, 3, 4, 5, 6, 7].includes(planet)) {
+                if (targetSign === sunSignId) {
+                    // ร่วมราศีอาทิตย์ (เสี่ยงดับ)
+                    specialStatusHtml += `
+                        <div class="flex gap-2 items-start mt-3">
                             <span class="text-orange-500 text-lg">☀</span>
                             <div>
-                                <span class="text-orange-400 font-medium">ดาวดับ / ดาวเพ็ญ (Combust/Cazimi)</span>
-                                <p class="text-sm text-slate-300 mt-1">ดาวดวงนี้อยู่ใกล้ดาวอาทิตย์ (0-6 องศา) พลังงานของดาวถูกอาทิตย์แผดเผา ทำให้คุณภาพดาวลดลง หรือเรื่องราวของดาวนั้นกลายเป็นเรื่องถูกปกปิด ซ่อนเร้น</p>
+                                <span class="text-orange-400 font-bold">⚠️ ดาวร่วมราศีอาทิตย์ (เสี่ยงดาวดับ)</span>
+                                <p class="text-sm text-slate-300 mt-1">
+                                    ดาวดวงนี้สถิตราศีเดียวกับดวงอาทิตย์ <strong>โปรดเช็คองศาดาว: หากห่างจากอาทิตย์ในระยะ 0-6 องศา ถือว่าเป็น "ดาวดับ"</strong><br>
+                                    <span class="text-xs text-slate-400">*ความหมาย: พลังงานดาวถูกอาทิตย์แผดเผา ทำให้คุณภาพลดลง หรือเรื่องราวของภพนั้นกลายเป็นเรื่องถูกปกปิด ซ่อนเร้น ไม่แสดงผลเต็มที่</span>
+                                </p>
                             </div>
-                        </div>
-                    `;
+                        </div>`;
+                } else if (targetSign === (sunSignId + 6) % 12) {
+                    // เล็งอาทิตย์ (เพ็ญ)
+                    specialStatusHtml += `
+                        <div class="flex gap-2 items-start mt-3">
+                            <span class="text-yellow-300 text-lg">🌕</span>
+                            <div>
+                                <span class="text-yellow-400 font-bold">ดาวเพ็ญ (สุกสว่างเต็มที่)</span>
+                                <p class="text-sm text-slate-300 mt-1">
+                                    ดาวดวงนี้ทำมุมเล็ง (180 องศา) กับดวงอาทิตย์ ถือเป็น "ดาวเพ็ญ" ส่งผลให้ดาวมีพลังงานเต็มเปี่ยม เรื่องราวของดาวและภพมีความโดดเด่น ชัดเจน และมีกำลังมาก
+                                </p>
+                            </div>
+                        </div>`;
                 }
+            }
 
-                html += `</div>`;
+            // ถ้านำ Special Status มารวมแล้วมีค่า ให้แสดงกล่อง
+            if (specialStatusHtml !== '') {
+                html += `<div class="bg-slate-900/40 rounded-xl p-5 border border-slate-700/50 mt-4 space-y-2">
+                            <h3 class="text-slate-300 font-semibold mb-3 border-b border-slate-700 pb-2">จุดสังเกตพิเศษ</h3>
+                            ${specialStatusHtml}
+                         </div>`;
             }
 
             elResultContent.innerHTML = html;
         }
 
         // Event Listeners
-        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elMotion, elIsCombust];
+        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elSunSign, elMotion];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
