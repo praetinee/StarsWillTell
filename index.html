@@ -115,22 +115,54 @@
                             </select>
                         </div>
 
-                        <!-- แถวที่ 3: ระบบดาวชุมนุม (ติ๊กเลือกได้หลายดวง) -->
+                        <!-- แถวที่ 3: ระบบดาวชุมนุม (ติ๊กเลือกดวงกุม + ปรับการโคจร) -->
                         <div class="mt-4 pt-4 border-t border-slate-700/50">
-                            <label class="block text-sm text-slate-300 mb-2">ดาวกุม (สถิตร่วมราศีเดียวกัน) <span class="text-xs text-yellow-500 ml-1">ติ๊กเลือกได้หลายดวง</span></label>
-                            <div class="grid grid-cols-5 gap-y-3 gap-x-2" id="conjunctCheckboxes">
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="1" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๑</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="2" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๒</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="3" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๓</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="4" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๔</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="5" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๕</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="6" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๖</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="7" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๗</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="8" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๘</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="9" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๙</span></label>
-                                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="0" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๐</span></label>
+                            <label class="block text-sm text-slate-300 mb-2">ดาวกุม (สถิตร่วมราศีเดียวกัน) <span class="text-xs text-yellow-500 ml-1">เมื่อติ๊กเลือก จะมีเมนูการโคจรให้ปรับ</span></label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-3 gap-x-2" id="conjunctCheckboxes">
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="1" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๑ - อาทิตย์</span></label>
+                                    <select id="motion-1" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="2" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๒ - จันทร์</span></label>
+                                    <select id="motion-2" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="3" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๓ - อังคาร</span></label>
+                                    <select id="motion-3" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="4" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๔ - พุธ</span></label>
+                                    <select id="motion-4" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="5" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๕ - พฤหัสฯ</span></label>
+                                    <select id="motion-5" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="6" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๖ - ศุกร์</span></label>
+                                    <select id="motion-6" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="7" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๗ - เสาร์</span></label>
+                                    <select id="motion-7" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="8" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๘ - ราหู</span></label>
+                                    <select id="motion-8" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="9" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๙ - เกตุ</span></label>
+                                    <select id="motion-9" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
+                                <div class="flex flex-col space-y-1">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="0" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300">๐ - มฤตยู</span></label>
+                                    <select id="motion-0" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200 ml-6 w-24"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
                     </div>
                 </div>
             </div>
@@ -715,31 +747,36 @@
             }
             // 5. ระบบดาวกุม & ดาวชุมนุม (Stellium)
             const checkedBoxes = Array.from(document.querySelectorAll('.conjunct-cb:checked')).map(cb => parseInt(cb.value));
-            const conjunctVals = checkedBoxes.filter(v => v !== planet); // เอาดาวหลักที่อาจเผลอติ๊กซ้ำออก
+            const conjunctVals = checkedBoxes.filter(v => v !== planet); // เอาดาวหลักออกถ้าเผลอติ๊กซ้ำ
             
             if (conjunctVals.length > 0) {
-                const allPlanets = [planet, ...conjunctVals];
                 const pNames = {1:'อาทิตย์', 2:'จันทร์', 3:'อังคาร', 4:'พุธ', 5:'พฤหัสบดี', 6:'ศุกร์', 7:'เสาร์', 8:'ราหู', 9:'เกตุ', 0:'มฤตยู'};
+                
+                // สร้างฐานข้อมูลดาวทุกดวงในภพนี้ (หลัก + กุม)
+                let allPlanetsData = [];
+                allPlanetsData.push({ id: planet, isMain: true, motion: motion });
+                conjunctVals.forEach(v => {
+                    const mNode = document.getElementById(`motion-${v}`);
+                    allPlanetsData.push({ id: v, isMain: false, motion: mNode ? mNode.value : 'ปกติ' });
+                });
 
                 html += `<div class="bg-indigo-900/20 rounded-xl p-5 border border-indigo-500/30 mt-6 space-y-4 shadow-lg">`;
 
                 // 5.1 แจ้งเตือนดาวชุมนุม (ถ้ามี 3 ดวงขึ้นไป)
-                if (allPlanets.length >= 3) {
+                if (allPlanetsData.length >= 3) {
                     html += `
                         <div class="bg-red-900/40 rounded-lg p-4 border border-red-500/50">
                             <h3 class="text-red-400 font-bold mb-1 flex items-center gap-2"><span>⚠️</span> ดาวชุมนุม (Stellium)</h3>
-                            <p class="text-sm text-slate-300">มีดาวกระจุกตัวอยู่รวมกันถึง <strong>${allPlanets.length} ดวง</strong> ในราศีนี้ ถือเป็นจุดโฟกัสหลักของชีวิต มีความซับซ้อน วุ่นวาย มีตัวแปรเข้ามาเกี่ยวข้องเยอะ และจะส่งผลกระทบอย่างรุนแรงต่อภพ ${destHouseName}</p>
+                            <p class="text-sm text-slate-300">มีดาวกระจุกตัวอยู่รวมกันถึง <strong>${allPlanetsData.length} ดวง</strong> ในราศีนี้ ถือเป็นจุดโฟกัสหลักของชีวิต มีความซับซ้อน วุ่นวาย มีตัวแปรเข้ามาเกี่ยวข้องเยอะ และจะส่งผลกระทบอย่างรุนแรงต่อภพ ${destHouseName}</p>
                         </div>`;
                 }
 
-                // 5.2 ค้นหา "ดาวประธาน" (ดาวที่มีมาตรฐานสูงสุดในกลุ่ม)
-                let leaderStr = "";
-                let maxScore = -1;
+                // ค้นหา "ดาวประธาน" (ดาวที่มีมาตรฐานสูงสุดในกลุ่ม)
                 let leaderPlanet = -1;
-                
-                allPlanets.forEach(p => {
-                    if(p === 9 || p === 0) return;
-                    const digs = getAutoDignity(p, targetSign);
+                let maxScore = -1;
+                allPlanetsData.forEach(pObj => {
+                    if(pObj.id === 9 || pObj.id === 0) return;
+                    const digs = getAutoDignity(pObj.id, targetSign);
                     const digStr = digs.join('');
                     let score = 0;
                     if (digStr.includes('เกษตร')) score = 4;
@@ -749,28 +786,59 @@
                     
                     if (score > maxScore && score > 0) {
                         maxScore = score;
-                        leaderPlanet = p;
-                        leaderStr = digs.join(' และ ');
+                        leaderPlanet = pObj.id;
                     }
                 });
 
-                if (leaderPlanet !== -1) {
-                    html += `
-                        <div class="bg-yellow-900/30 rounded-lg p-4 border border-yellow-500/30">
-                            <h3 class="text-yellow-400 font-bold mb-1 flex items-center gap-2"><span>👑</span> ดาวประธานคุมเกม</h3>
-                            <p class="text-sm text-slate-300">ดาว <strong>${pNames[leaderPlanet]}</strong> มีกำลังสูงสุดในกลุ่ม (${leaderStr}) จะทำหน้าที่เป็นผู้นำและควบคุมทิศทางของเรื่องราวทั้งหมดในภพนี้</p>
-                        </div>`;
-                }
-
-                // 5.3 ถอดรหัสคู่ดาวแบบพบกันหมด (Pairwise)
+                // 5.2 สรุปสถานะดาวทั้งหมด (เช็คชื่อตัวละครก่อนเข้าฉาก)
                 html += `<div class="pt-2">
+                            <h3 class="text-indigo-300 font-bold mb-3 border-b border-indigo-500/30 pb-2">เช็คสถานะดาวในภพนี้</h3>
+                            <ul class="space-y-2">`;
+                
+                allPlanetsData.forEach(pObj => {
+                    const p = pObj.id;
+                    const m = pObj.motion;
+                    const isMain = pObj.isMain;
+                    const pNameStr = pNames[p];
+                    
+                    let roleIcon = isMain ? "📌" : "🔹";
+                    let roleText = isMain ? "ดาวหลัก" : "ดาวกุม";
+                    if (p === leaderPlanet) { roleIcon = "👑"; roleText = "ดาวประธาน"; }
+
+                    let digText = "<span class='text-slate-400'>- ไม่มีมาตรฐาน -</span>";
+                    if (p !== 9 && p !== 0) {
+                        const digs = getAutoDignity(p, targetSign);
+                        if (digs.length > 0) digText = digs.join(', ');
+                    } else {
+                        digText = "<span class='text-purple-400'>ดาวเหนือความคาดหมาย</span>";
+                    }
+
+                    let motionAlert = "";
+                    if (m !== 'ปกติ') {
+                        motionAlert = `<span class="text-xs text-orange-400 ml-2 bg-orange-900/30 px-2 py-0.5 rounded font-semibold border border-orange-500/30">โคจร${m}</span>`;
+                    }
+
+                    html += `<li class="flex items-start text-sm text-slate-300">
+                                <span class="mr-2">${roleIcon}</span>
+                                <div>
+                                    <strong class="text-white">${p} - ${pNameStr} (${roleText})</strong> : ${digText} ${motionAlert}
+                                </div>
+                             </li>`;
+                });
+                html += `   </ul>
+                         </div>`;
+
+                // 5.3 ถอดรหัสคู่ดาวแบบพบกันหมด (Pairwise) พร้อมระบุคำเตือนโคจรวิปริต
+                html += `<div class="pt-4">
                             <h3 class="text-indigo-300 font-bold mb-3 border-b border-indigo-500/30 pb-2">การผสมพลังงาน (อิทธิพลคู่ดาว)</h3>
                             <div class="space-y-3">`;
                 
-                for (let i = 0; i < allPlanets.length; i++) {
-                    for (let j = i + 1; j < allPlanets.length; j++) {
-                        const p1 = allPlanets[i];
-                        const p2 = allPlanets[j];
+                for (let i = 0; i < allPlanetsData.length; i++) {
+                    for (let j = i + 1; j < allPlanetsData.length; j++) {
+                        const p1Obj = allPlanetsData[i];
+                        const p2Obj = allPlanetsData[j];
+                        const p1 = p1Obj.id;
+                        const p2 = p2Obj.id;
                         const minP = Math.min(p1, p2);
                         const maxP = Math.max(p1, p2);
                         
@@ -784,39 +852,62 @@
                             pairMeaning = pairMeanings[pairKey] || "ส่งอิทธิพลผสมผสานกันตามธรรมชาติของดาว";
                         }
 
+                        // ถ้าคู่ไหนดาวมีการโคจรวิปริต ให้พ่วงคำเตือนไปด้วย
+                        let pairWarning = "";
+                        if (p1Obj.motion !== 'ปกติ' || p2Obj.motion !== 'ปกติ') {
+                            let errList = [];
+                            if (p1Obj.motion !== 'ปกติ') errList.push(`${pNames[p1]}(${p1Obj.motion})`);
+                            if (p2Obj.motion !== 'ปกติ') errList.push(`${pNames[p2]}(${p2Obj.motion})`);
+                            pairWarning = `<div class="text-xs text-orange-400 mt-2 bg-orange-900/10 p-2 rounded border border-orange-500/20">⚠️ <strong>ระวัง:</strong> ดาว ${errList.join(' และ ')} ทำให้พลังงานคู่นี้มีความแปรปรวน ล่าช้า หรือเอาแน่เอานอนไม่ได้</div>`;
+                        }
+
                         html += `
                             <div class="bg-slate-800/50 rounded p-3 border border-slate-700/50">
                                 <span class="text-sm font-semibold text-blue-300 block mb-1">ดาว ${p1} กุม ${p2} (${pNames[p1]} + ${pNames[p2]})</span>
                                 <span class="text-sm text-slate-300">${pairMeaning}</span>
+                                ${pairWarning}
                             </div>`;
                     }
                 }
                 html += `</div></div></div>`;
             }
             
-            // แทรกบรรทัดนี้ลงไปเพื่อสั่งให้หน้าจออัปเดตผลลัพธ์!
+            // แสดงผลขึ้นหน้าจอ!
             elResultContent.innerHTML = html;
-            
         }
 
-        // Event Listeners
+        // Event Listeners สำหรับการอัปเดตแบบ Real-time
         const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elSunSign, elMotion];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
+
+        // Event: เมื่อติ๊ก Checkbox ให้ซ่อน/โชว์ Dropdown การโคจร
         document.querySelectorAll('.conjunct-cb').forEach(cb => {
-            cb.addEventListener('change', calculateReading);
+            cb.addEventListener('change', (e) => {
+                const selectEl = document.getElementById(`motion-${e.target.value}`);
+                if (selectEl) {
+                    if (e.target.checked) selectEl.classList.remove('hidden');
+                    else {
+                        selectEl.classList.add('hidden');
+                        selectEl.value = 'ปกติ'; // เคลียร์ค่ากลับเป็นปกติ
+                    }
+                }
+                calculateReading();
+            });
         });
 
-        // Initialize
+        // Event: เมื่อเปลี่ยนค่าใน Dropdown โคจรดาวกุม ให้คำนวณใหม่
+        document.querySelectorAll('.conjunct-motion-select').forEach(sel => {
+            sel.addEventListener('change', calculateReading);
+        });
+
+        // Initialize เริ่มการทำงานครั้งแรก
         window.onload = () => {
             initSelects();
-            
-            // Set defaults to make it interesting on load
             elAscendant.value = "0"; // ลัคนาเมษ
             elPlanet.value = "3"; // ดาวอังคาร (ตนุ, มรณะ)
             elPlanetSign.value = "1"; // ไปพฤษภ (กดุมภะ)
-            
             calculateReading();
         };
 
