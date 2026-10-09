@@ -95,6 +95,22 @@
                             </select>
                         </div>
                         <div>
+                            <label class="block text-sm text-slate-300 mb-1">ดาวกุม (สถิตร่วมราศีเดียวกัน)</label>
+                            <select id="conjunctPlanet" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                                <option value="none">- ไม่มีดาวกุม -</option>
+                                <option value="1">๑ - อาทิตย์</option>
+                                <option value="2">๒ - จันทร์</option>
+                                <option value="3">๓ - อังคาร</option>
+                                <option value="4">๔ - พุธ</option>
+                                <option value="5">๕ - พฤหัสบดี</option>
+                                <option value="6">๖ - ศุกร์</option>
+                                <option value="7">๗ - เสาร์</option>
+                                <option value="8">๘ - ราหู</option>
+                                <option value="9">๙ - เกตุ</option>
+                                <option value="0">๐ - มฤตยู</option>
+                            </select>
+                        </div>
+                        <div>
                             <label class="block text-sm text-slate-300 mb-1">ไปอยู่ราศี (ภพปลายทาง)</label>
                             <select id="planetSign" class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
                                 <!-- Options populated by JS -->
@@ -435,15 +451,48 @@
             9: { "พักร์": "ลางสังหรณ์ผิดเพี้ยน เรื่องวุ่นวายเก่าๆ กลับมา", "มนท์": "ความศักดิ์สิทธิ์/เซนส์ลดลง สิ่งที่คาดหวังชะงัก", "เสิร์ด": "วุ่นวายกะทันหัน สังหรณ์แรงปุบปับ เดินทางด่วน" },
             0: { "พักร์": "การเปลี่ยนแปลงที่ถูกระงับไว้กลับมาปะทุ โรคเก่ากำเริบเฉียบพลัน", "มนท์": "การเปลี่ยนแปลงล่าช้า เทคโนโลยี/นวัตกรรมติดขัด", "เสิร์ด": "เกิดอาเพศ/การเปลี่ยนแปลงอย่างรุนแรงและรวดเร็วมาก" }
         };
+        // ฐานข้อมูลความหมายคู่ดาว (เรียงตัวเลขน้อย-มาก)
+        const pairMeanings = {
+            "1-2": "คู่มิตร: ช่วยเหลือเกื้อกูลกันดี มีเสน่ห์ เมตตามหานิยม",
+            "1-3": "คู่ศัตรู/อุบัติเหตุ: ขัดแย้ง ปะทะ ทิฐิสูง ใจร้อนวู่วาม ระวังอุบัติเหตุ",
+            "1-4": "คู่เจรจา/วิชาการ: พูดจามีหลักการ น่าเชื่อถือ ผู้ใหญ่เมตตา ติดต่อเอกสารดี",
+            "1-5": "คู่มิตรใหญ่: ผู้ใหญ่คอยอุปถัมภ์ค้ำชู ประสบความสำเร็จดีมาก มีปัญญาดี",
+            "1-6": "คู่สมพล: มีความทะเยอทะยานสูง ได้เงิน/ความรักมาด้วยความสามารถ",
+            "1-7": "คู่ธาตุไฟ: มุมานะ อดทนฝ่าฟัน เครียดแต่จะประสบความสำเร็จยิ่งใหญ่",
+            "1-8": "คู่ศัตรู/คดีความ: หน้ามืดตามัว ถูกหลอกลวง ระวังเรื่องคดีความหรือเสียรู้",
+            "2-3": "คู่ศัตรู/ชู้สาว: ขัดแย้งเรื่องอารมณ์ หึงหวง รักสามเส้า หรือมีปัญหากับเพศตรงข้าม",
+            "2-4": "คู่มิตร: อ่อนหวาน นุ่มนวล เจรจาค้าขายดีเยี่ยม มีเสน่ห์ดึงดูดใจ",
+            "2-5": "คู่ธาตุดิน: มั่นคง หนักแน่น มีหลักฐานะดี แต่อาจมีความขัดแย้งลึกๆ (ศัตรูเงียบ)",
+            "2-6": "คู่สมพล/คู่ทรัพย์: หาเงินเก่ง เสน่ห์แรง รายได้และโชคลาภเข้ามาหลายทาง",
+            "2-7": "คู่พลัดพราก: อมทุกข์ วิตกกังวล ห่างไกลคนรัก หรือมีหนี้สิน/ภาระเหนื่อยหนัก",
+            "2-8": "คู่สมพล/หลงผิด: หมุนเงินก้อนใหญ่ เป็นหนี้ง่าย ใจอ่อนเชื่อคนง่าย ระวังถูกหลอก",
+            "3-4": "คู่ศัตรู/วิวาท: ปะทะฝีปาก พูดจาขวานผ่าซาก ระวังคดีความเอกสารหรือทะเลาะเบาะแว้ง",
+            "3-5": "คู่สมพล/นักสู้: ขยันขันแข็ง บ้างาน แก้ปัญหาเก่ง เหนื่อยแต่สำเร็จด้วยตัวเอง",
+            "3-6": "คู่มิตร/ความรัก: สมหวังในความรัก เสน่ห์แรงมาก ขยันหาเงิน สายปาร์ตี้บันเทิง",
+            "3-7": "คู่ศัตรูใหญ่: แตกหัก รุนแรง อุบัติเหตุใหญ่ ผ่าตัด หรือมีเรื่องเครียดขั้นสุด",
+            "3-8": "คู่ธาตุลม/นักเลง: ใจกล้าบ้าบิ่น ลุยๆ ไม่กลัวใคร พลิกแพลงเก่ง ระวังอารมณ์วู่วาม",
+            "4-5": "คู่นักปราชญ์: มีเหตุผล สติปัญญาดีมาก เรียนรู้เร็ว เหมาะกับงานวิชาการ/กฎหมาย",
+            "4-6": "คู่ธาตุน้ำ: ร่มเย็น อ่อนโยน เจรจาพารวย ศิลปะดี หาเงินเก่งด้วยการพูด/เขียน",
+            "4-7": "คู่สมพล/เหนื่อย: ทำงานหนัก คิดมาก เจรจายากลำบาก ต้องใช้ความพยายามสูงมาก",
+            "4-8": "คู่ศัตรู/เล่ห์เหลี่ยม: ฉลาดแกมโกง โน้มน้าวเก่ง ทันคน แต่สัญญาและคำพูดมักมีหมกเม็ด/ซ่อนเร้น",
+            "5-6": "คู่ศัตรู/ขัดแย้ง: ขัดแย้งระหว่างอุดมการณ์กับความรัก/การเงิน สุขนิยมผสมศีลธรรม",
+            "5-7": "คู่พระคู่โจร/พลิกผัน: ความคิดขัดแย้งในตัว จุดหักเหชีวิตสูง ระวังข้อกฎหมาย/ผู้ใหญ่ให้โทษ",
+            "5-8": "คู่พลิกแพลง: ทันโลก ทันเกม รู้หลบรู้หลีก แต่ระวังความหลงผิดหรือออกนอกลู่นอกทาง",
+            "6-7": "คู่ศัตรู/คู่ทุกข์: ผิดหวังเรื่องรัก/เงิน อกหัก รักคุด หรือได้ทรัพย์มาก็ต้องเสียไป",
+            "6-8": "คู่ลุ่มหลง/มัวเมา: ลุ่มหลงกิเลส การพนัน รักสนุก ใช้เงินเก่ง สังคมจัด หรือรักซ้อน",
+            "7-8": "คู่มิตรใหญ่: กว้างขวาง มีอิทธิพล คอนเนคชั่นแน่น ทำธุรกิจสีเทาหรือโปรเจกต์ใหญ่ดีมาก"
+        };
 
         // DOM Elements
         const elBirthDay = document.getElementById('birthDay');
         const elAscendant = document.getElementById('ascendant');
         const elPlanet = document.getElementById('planet');
+        const elConjunctPlanet = document.getElementById('conjunctPlanet'); // เพิ่มบรรทัดนี้
         const elPlanetSign = document.getElementById('planetSign');
         const elSunSign = document.getElementById('sunSign'); // เพิ่มบรรทัดนี้
         const elMotion = document.getElementById('motion');
         const elResultContent = document.getElementById('resultContent');
+        
 
         // Populate Select Options
         function initSelects() {
@@ -667,12 +716,48 @@ const planet = parseInt(elPlanet.value);
                             ${specialStatusHtml}
                          </div>`;
             }
+            // 5. เช็คดาวกุม (อิทธิพลคู่ดาว)
+            const conjunctVal = elConjunctPlanet.value;
+            if (conjunctVal !== 'none') {
+                const p1 = planet;
+                const p2 = parseInt(conjunctVal);
+                
+                if (p1 === p2) {
+                    html += `
+                        <div class="bg-indigo-900/30 rounded-xl p-5 border border-indigo-500/30 mt-4">
+                            <h3 class="text-indigo-400 font-bold mb-1">✨ ดาวสถิตกุมกันเอง</h3>
+                            <p class="text-sm text-slate-300">ดาวดวงเดียวกันกุมกัน เป็นการเน้นย้ำและเบิ้ลพลังงานของดาวดวงนั้นให้โดดเด่นและชัดเจนยิ่งขึ้น</p>
+                        </div>`;
+                } else if (p1 === 9 || p2 === 9 || p1 === 0 || p2 === 0) {
+                    // กรณีดาว 9 หรือ 0 มากุม
+                    const specialModifier = (p1 === 9 || p2 === 9) 
+                        ? "มีสิ่งศักดิ์สิทธิ์คุ้มครอง มีเซนส์ ลางสังหรณ์ หรือมีเรื่องแปลกประหลาด/ต่างประเทศเข้ามาผสมผสาน"
+                        : "เกิดความพลิกผัน อาเพศ นวัตกรรม ความล้ำสมัย หรือการเปลี่ยนแปลงกะทันหันในเรื่องนั้นๆ";
+                    html += `
+                        <div class="bg-purple-900/30 rounded-xl p-5 border border-purple-500/30 mt-4">
+                            <h3 class="text-purple-400 font-bold mb-1">อิทธิพลดาวกุม (มีดาว ๙/๐ ร่วมด้วย)</h3>
+                            <p class="text-sm text-slate-300">เรื่องราวของภพนี้จะมีอิทธิพลของความเหนือความคาดหมาย: ${specialModifier}</p>
+                        </div>`;
+                } else {
+                    // กรณีดาว 1-8 เจอกัน
+                    const minP = Math.min(p1, p2);
+                    const maxP = Math.max(p1, p2);
+                    const pairKey = `${minP}-${maxP}`;
+                    const pairMeaning = pairMeanings[pairKey] || "ส่งอิทธิพลผสมผสานกันตามธรรมชาติของดาวทั้งสองดวง";
+                    
+                    html += `
+                        <div class="bg-blue-900/30 rounded-xl p-5 border border-blue-500/30 mt-4">
+                            <h3 class="text-blue-400 font-bold mb-1">อิทธิพลคู่ดาวกุม (${p1} กุม ${p2})</h3>
+                            <p class="text-sm text-slate-300">${pairMeaning}</p>
+                        </div>`;
+                }
+            }
 
             elResultContent.innerHTML = html;
         }
 
         // Event Listeners
-        const inputs = [elBirthDay, elAscendant, elPlanet, elPlanetSign, elSunSign, elMotion];
+        const inputs = [elBirthDay, elAscendant, elPlanet, elConjunctPlanet, elPlanetSign, elSunSign, elMotion];
         inputs.forEach(input => {
             input.addEventListener('change', calculateReading);
         });
