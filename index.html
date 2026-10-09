@@ -115,118 +115,52 @@
                             </select>
                         </div>
 
-                        <!-- แถวที่ 3: ระบบดาวชุมนุม (ติ๊กเลือกดวงกุม + ปรับการโคจร) -->
-                        <div class="mt-5 pt-5 border-t border-slate-700/50">
-                            <div class="mb-3">
-                                <label class="block text-sm font-medium text-slate-200">ดาวกุม (สถิตร่วมราศีเดียวกัน)</label>
-                                <p class="text-xs text-yellow-500/80 mt-1">ติ๊กเลือกดาวที่กุมกัน (เลือกได้หลายดวง) เพื่อเปิดปรับการโคจร</p>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="conjunctCheckboxes">
-                                <!-- 1 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="1" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๑ - อาทิตย์</span>
-                                    </label>
-                                    <select id="motion-1" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                        <!-- แถวที่ 3: ระบบดาวชุมนุม -->
+                        <div class="mt-4 pt-4 border-t border-slate-700/50">
+                            <label class="block text-sm text-slate-300 mb-3">ดาวกุม (สถิตร่วมราศีเดียวกัน) <span class="text-xs text-yellow-500 ml-1">ติ๊กเลือกเพื่อปรับการโคจร</span></label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-3" id="conjunctCheckboxes">
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="1" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๑-อาทิตย์</span></label>
+                                    <select id="motion-1" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 2 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="2" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๒ - จันทร์</span>
-                                    </label>
-                                    <select id="motion-2" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="2" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๒-จันทร์</span></label>
+                                    <select id="motion-2" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 3 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="3" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๓ - อังคาร</span>
-                                    </label>
-                                    <select id="motion-3" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="3" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๓-อังคาร</span></label>
+                                    <select id="motion-3" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 4 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="4" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๔ - พุธ</span>
-                                    </label>
-                                    <select id="motion-4" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="4" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๔-พุธ</span></label>
+                                    <select id="motion-4" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 5 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="5" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๕ - พฤหัสบดี</span>
-                                    </label>
-                                    <select id="motion-5" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="5" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๕-พฤหัสฯ</span></label>
+                                    <select id="motion-5" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 6 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="6" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๖ - ศุกร์</span>
-                                    </label>
-                                    <select id="motion-6" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="6" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๖-ศุกร์</span></label>
+                                    <select id="motion-6" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 7 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="7" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๗ - เสาร์</span>
-                                    </label>
-                                    <select id="motion-7" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="7" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๗-เสาร์</span></label>
+                                    <select id="motion-7" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 8 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="8" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๘ - ราหู</span>
-                                    </label>
-                                    <select id="motion-8" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="8" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๘-ราหู</span></label>
+                                    <select id="motion-8" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 9 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="9" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๙ - เกตุ</span>
-                                    </label>
-                                    <select id="motion-9" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="9" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๙-เกตุ</span></label>
+                                    <select id="motion-9" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
-                                <!-- 0 -->
-                                <div class="flex flex-col p-2.5 rounded-lg bg-slate-900/40 border border-slate-700/50 hover:border-slate-500 transition-all">
-                                    <label class="flex items-center space-x-2.5 cursor-pointer">
-                                        <input type="checkbox" value="0" class="conjunct-cb shrink-0 w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> 
-                                        <span class="text-sm font-medium text-slate-300 truncate">๐ - มฤตยู</span>
-                                    </label>
-                                    <select id="motion-0" class="conjunct-motion-select hidden mt-2.5 w-full text-xs bg-slate-800 border border-slate-600 rounded p-1.5 text-slate-300 focus:ring-1 focus:ring-yellow-500 focus:outline-none">
-                                        <option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option>
-                                    </select>
+                                <div class="flex flex-col space-y-1.5">
+                                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" value="0" class="conjunct-cb w-4 h-4 text-yellow-500 bg-slate-800 border-slate-600 rounded focus:ring-yellow-500"> <span class="text-slate-300 text-sm">๐-มฤตยู</span></label>
+                                    <select id="motion-0" class="conjunct-motion-select hidden text-xs bg-slate-700 border border-slate-600 rounded p-1 text-slate-200"><option value="ปกติ">โคจรปกติ</option><option value="พักร์">พักร์ (ถอยหลัง)</option><option value="มนท์">มนท์ (ช้า)</option><option value="เสิร์ด">เสิร์ด (เร็ว)</option></select>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                     </div>
                 </div>
             </div>
@@ -920,9 +854,19 @@
                         let pairWarning = "";
                         if (p1Obj.motion !== 'ปกติ' || p2Obj.motion !== 'ปกติ') {
                             let errList = [];
-                            if (p1Obj.motion !== 'ปกติ') errList.push(`${pNames[p1]}(${p1Obj.motion})`);
-                            if (p2Obj.motion !== 'ปกติ') errList.push(`${pNames[p2]}(${p2Obj.motion})`);
-                            pairWarning = `<div class="text-xs text-orange-400 mt-2 bg-orange-900/10 p-2 rounded border border-orange-500/20">⚠️ <strong>ระวัง:</strong> ดาว ${errList.join(' และ ')} ทำให้พลังงานคู่นี้มีความแปรปรวน ล่าช้า หรือเอาแน่เอานอนไม่ได้</div>`;
+                            
+                            // ฟังก์ชันย่อยสำหรับแปลความหมายวิปริต
+                            const getMotionDesc = (m) => {
+                                if (m === 'พักร์') return 'ถอยหลัง/ซ้ำซาก';
+                                if (m === 'มนท์') return 'ช้า/หยุดนิ่ง';
+                                if (m === 'เสิร์ด') return 'รวดเร็ว/วู่วาม';
+                                return '';
+                            };
+
+                            if (p1Obj.motion !== 'ปกติ') errList.push(`ดาว${pNames[p1]} โคจร${p1Obj.motion}(${getMotionDesc(p1Obj.motion)})`);
+                            if (p2Obj.motion !== 'ปกติ') errList.push(`ดาว${pNames[p2]} โคจร${p2Obj.motion}(${getMotionDesc(p2Obj.motion)})`);
+                            
+                            pairWarning = `<div class="text-xs text-orange-400 mt-2 bg-orange-900/10 p-2 rounded border border-orange-500/20">⚠️ <strong>ระวัง:</strong> พลังงานคู่นี้ได้รับอิทธิพลจาก <u>${errList.join(' และ ')}</u> ทำให้ผลลัพธ์อาจพลิกผันไปจากความหมายปกติ</div>`;
                         }
 
                         html += `
