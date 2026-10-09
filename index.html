@@ -510,6 +510,17 @@
             "6-8": "คู่ลุ่มหลง/มัวเมา: ลุ่มหลงกิเลส การพนัน รักสนุก ใช้เงินเก่ง สังคมจัด หรือรักซ้อน",
             "7-8": "คู่มิตรใหญ่: กว้างขวาง มีอิทธิพล คอนเนคชั่นแน่น ทำธุรกิจสีเทาหรือโปรเจกต์ใหญ่ดีมาก"
         };
+        // ฐานข้อมูลอาการโคจรวิปริตแยกตามดาว (ดึงแก่นของดาวมาผสมอาการ)
+        const specificMotionMeanings = {
+            1: { "พักร์": "เกียรติยศและอำนาจถดถอย", "มนท์": "ความก้าวหน้าและเป้าหมายหยุดนิ่ง", "เสิร์ด": "ใช้อำนาจวู่วามหรือตัดสินใจใจร้อนเกินไป" },
+            2: { "พักร์": "อารมณ์แปรปรวนกังวลเรื่องในอดีต", "มนท์": "ความรู้สึกซึมเซาเฉื่อยชา", "เสิร์ด": "อ่อนไหวง่ายและตื่นตูมเร็วกว่าปกติ" },
+            3: { "พักร์": "พลังงานถดถอยลังเลหรือรื้อฟื้นเรื่องเก่า", "มนท์": "หมดไฟความกล้าและพละกำลังลดลง", "เสิร์ด": "ใจเร็วด่วนได้อารมณ์ร้อนและวู่วาม" },
+            4: { "พักร์": "พูดจาวกวนเปลี่ยนใจบ่อยหรือต้องแก้เอกสารซ้ำ", "มนท์": "ความคิดและการตัดสินใจล่าช้าลังเล", "เสิร์ด": "รับปากเร็วหรือด่วนตัดสินใจโดยไม่ไตร่ตรอง" },
+            5: { "พักร์": "ผู้ใหญ่ลังเลเปลี่ยนใจหรือต้องทบทวนหลักการ", "มนท์": "การช่วยเหลือจากผู้ใหญ่ล่าช้าหรือขาดสติยั้งคิด", "เสิร์ด": "มั่นใจในตัวเองเกินไปหรือด่วนสรุปในเรื่องสำคัญ" },
+            6: { "พักร์": "ความรักและการเงินแปรปรวนหรือเรื่องเก่ากลับมา", "มนท์": "ความรักซึมเซาหรือสภาพคล่องทางการเงินฝืดเคือง", "เสิร์ด": "ใจเร็วด่วนได้เรื่องรักและใช้เงินแก้ปัญหาปุบปับ" },
+            7: { "พักร์": "ย้ำคิดย้ำทำเรื่องเครียดหรือปัญหาเก่าปะทุ", "มนท์": "ต้องแบกภาระยืดเยื้อความอดทนถึงขีดจำกัด", "เสิร์ด": "เครียดฉับพลันหรือต้องรับปัญหาเข้ามาอย่างวู่วาม" },
+            8: { "พักร์": "ความหลงผิดแปรปรวนหรือเล่ห์เหลี่ยมถูกจับได้", "มนท์": "ความลุ่มหลงซึมเซาหรือโปรเจกต์สีเทาติดขัด", "เสิร์ด": "กล้าเสี่ยงอย่างวู่วามและลุ่มหลงอย่างรวดเร็ว" }
+        };
 
         // DOM Elements
         const elBirthDay = document.getElementById('birthDay');
@@ -853,20 +864,38 @@
                         // ถ้าคู่ไหนดาวมีการโคจรวิปริต ให้พ่วงคำเตือนไปด้วย
                         let pairWarning = "";
                         if (p1Obj.motion !== 'ปกติ' || p2Obj.motion !== 'ปกติ') {
-                            let errList = [];
+                            let motionTexts = [];
                             
-                            // ฟังก์ชันย่อยสำหรับแปลความหมายวิปริต
-                            const getMotionDesc = (m) => {
-                                if (m === 'พักร์') return 'ถอยหลัง/ซ้ำซาก';
-                                if (m === 'มนท์') return 'ช้า/หยุดนิ่ง';
-                                if (m === 'เสิร์ด') return 'รวดเร็ว/วู่วาม';
-                                return '';
+                            // ดึงความหมายเฉพาะดาว
+                            const getSpecificMotion = (planetId, motion) => {
+                                if (planetId === 9 || planetId === 0) {
+                                    if(specialMotion[planetId] && specialMotion[planetId][motion]) {
+                                        return `<strong>${specialMotion[planetId][motion]} (${pNames[planetId]}${motion})</strong>`;
+                                    }
+                                    return "";
+                                }
+                                if (specificMotionMeanings[planetId] && specificMotionMeanings[planetId][motion]) {
+                                    return `<strong>${specificMotionMeanings[planetId][motion]} (${pNames[planetId]}${motion})</strong>`;
+                                }
+                                return "";
                             };
 
-                            if (p1Obj.motion !== 'ปกติ') errList.push(`ดาว${pNames[p1]} โคจร${p1Obj.motion}(${getMotionDesc(p1Obj.motion)})`);
-                            if (p2Obj.motion !== 'ปกติ') errList.push(`ดาว${pNames[p2]} โคจร${p2Obj.motion}(${getMotionDesc(p2Obj.motion)})`);
+                            if (p1Obj.motion !== 'ปกติ') {
+                                const desc = getSpecificMotion(p1, p1Obj.motion);
+                                if(desc) motionTexts.push(desc);
+                            }
+                            if (p2Obj.motion !== 'ปกติ') {
+                                const desc = getSpecificMotion(p2, p2Obj.motion);
+                                if(desc) motionTexts.push(desc);
+                            }
                             
-                            pairWarning = `<div class="text-xs text-orange-400 mt-2 bg-orange-900/10 p-2 rounded border border-orange-500/20">⚠️ <strong>ระวัง:</strong> พลังงานคู่นี้ได้รับอิทธิพลจาก <u>${errList.join(' และ ')}</u> ทำให้ผลลัพธ์อาจพลิกผันไปจากความหมายปกติ</div>`;
+                            if (motionTexts.length > 0) {
+                                // เชื่อมประโยคให้น่าอ่าน
+                                let combinedText = motionTexts.join(" แต่ในขณะเดียวกัน ");
+                                pairWarning = `<div class="text-xs text-orange-400 mt-2.5 bg-orange-900/10 p-2.5 rounded border border-orange-500/20 leading-relaxed">
+                                                ⚠️ <strong>จุดพลิกผัน (พลังงานวิปริต):</strong> คู่นี้มีอาการขัดแย้ง/แปรปรวน เนื่องจาก ${combinedText} ทำให้ผลลัพธ์อาจพลิกผันไปจากความหมายปกติ
+                                               </div>`;
+                            }
                         }
 
                         html += `
